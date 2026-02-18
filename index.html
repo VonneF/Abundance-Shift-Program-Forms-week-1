@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1: Recognize | The Abundance Shift</title>
+    <style>
+        :root {
+            /* Palette Configuration */
+            --bg-cream: #F5F5F0;       /* Base Background */
+            --card-white: #FFFFFF;     /* Card Background */
+            --text-black: #1A1A1A;     /* Main Text */
+            --primary-green: #2E5045;  /* Headers & Buttons */
+            --accent-gold: #C5A059;    /* Highlights & Borders */
+            --light-gold: #EFE6D5;     /* Subtler Accents */
+            --error-red: #D32F2F;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-black);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- Header Section --- */
+        header {
+            background-color: var(--primary-green);
+            color: var(--card-white);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-gold);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 1.8rem;
+        }
+
+        .subtitle {
+            color: var(--accent-gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* --- Main Container --- */
+        .container {
+            max-width: 850px;
+            margin: -30px auto 40px; /* Overlap header slightly */
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Navigation Tabs --- */
+        .tabs {
+            display: flex;
+            background: var(--card-white);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 18px;
+            border: none;
+            background: var(--card-white);
+            color: var(--text-black);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            font-size: 1rem;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--light-gold);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-green);
+            border-bottom: 3px solid var(--primary-green);
+            background-color: #fff;
+        }
+
+        /* --- Content Cards --- */
+        .card {
+            background: var(--card-white);
+            padding: 40px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .card.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Typography & Elements --- */
+        h2 {
+            color: var(--primary-green);
+            border-bottom: 1px solid var(--accent-gold);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-weight: 400;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin-top: 30px;
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+
+        .quote-box {
+            background-color: var(--light-gold);
+            border-left: 4px solid var(--primary-green);
+            padding: 15px 20px;
+            font-style: italic;
+            color: var(--primary-green);
+            margin-bottom: 30px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-black);
+        }
+
+        .helper-text {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* --- Inputs --- */
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #FAFAFA;
+            font-family: inherit;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: all 0.3s;
+            color: var(--text-black);
+        }
+
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* --- Script Selection Radio Buttons --- */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radio-option:hover {
+            border-color: var(--accent-gold);
+            background-color: var(--bg-cream);
+        }
+
+        .radio-option input {
+            margin-right: 15px;
+            accent-color: var(--primary-green);
+            transform: scale(1.2);
+        }
+
+        /* --- Grid for Audit Exercise --- */
+        .audit-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            background-color: var(--bg-cream);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .audit-row {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .audit-label {
+            font-weight: bold;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- Footer Actions --- */
+        .actions {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .status-msg {
+            font-size: 0.9rem;
+            color: var(--primary-green);
+            font-style: italic;
+        }
+
+        button.primary-btn {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button.primary-btn:hover {
+            background-color: #1e362e;
+        }
+
+        button.secondary-btn {
+            background-color: transparent;
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button.secondary-btn:hover {
+            background-color: var(--bg-cream);
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The Abundance Shift</h1>
+    <div class="subtitle">Week 1: Recognize</div>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('workbook')">Workbook Exercises</button>
+        <button class="tab-btn" onclick="switchTab('audio')">Audio Practice: The Observer</button>
+    </div>
+
+    <div id="workbook" class="card active">
+        <div class="quote-box">
+            [cite_start]"You cannot change what you cannot see. This week, we simply look." [cite: 19]
+        </div>
+
+        <h2>Part 1: Workbook Exercises</h2>
+
+        <h3>Exercise 1: Which Script Do You Run Most?</h3>
+        [cite_start]<span class="helper-text">Identify which script feels most personal to you[cite: 30].</span>
+        
+        <div class="radio-group">
+            <label class="radio-option">
+                <input type="radio" name="script" value="Lack Loop">
+                <div>
+                    [cite_start]<strong>The Lack Loop</strong> ("Never enough" / "I can't afford to...") [cite: 26]
+                </div>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="script" value="Unworthiness Whisper">
+                <div>
+                    [cite_start]<strong>The Unworthiness Whisper</strong> ("Who am I?" / "I don't deserve...") [cite: 27]
+                </div>
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="script" value="Bracing Stance">
+                <div>
+                    [cite_start]<strong>The Bracing Stance</strong> ("Something will go wrong" / Waiting for impact) [cite: 28]
+                </div>
+            </label>
+        </div>
+
+        <label>Because...</label>
+        [cite_start]<span class="helper-text">Why does this script feel personal to you? [cite: 33]</span>
+        <textarea id="scriptReason" placeholder="I chose this because..."></textarea>
+
+        <h3>Exercise 2: The Inner Critic Audit</h3>
+        [cite_start]<span class="helper-text">Track your self-talk in these three specific moments [cite: 34-37].</span>
+
+        <div class="audit-grid">
+            <div class="audit-row">
+                <span class="audit-label">1. When something went wrong</span>
+                <input type="text" id="audit1_voice" placeholder="What my inner voice said...">
+                <input type="text" id="audit1_body" placeholder="How my body felt...">
+            </div>
+            <div class="audit-row">
+                <span class="audit-label">2. When I received a compliment</span>
+                <input type="text" id="audit2_voice" placeholder="What my inner voice said...">
+                <input type="text" id="audit2_body" placeholder="How my body felt...">
+            </div>
+            <div class="audit-row">
+                <span class="audit-label">3. When making a decision</span>
+                <input type="text" id="audit3_voice" placeholder="What my inner voice said...">
+                <input type="text" id="audit3_body" placeholder="How my body felt...">
+            </div>
+        </div>
+
+        <h3>Exercise 3: Body-Based Scarcity Check-In</h3>
+        <div class="quote-box" style="background: white; border: 1px dashed var(--accent-gold); border-left: none;">
+            [cite_start]Scan your body and ask: "Where does 'not enough' live in me right now?" [cite: 40]
+        </div>
+        [cite_start]<textarea id="bodyCheckIn" placeholder="I notice tension / tightness / heaviness in... When I sit with this feeling, it reminds me of... [cite: 41]"></textarea>
+
+        <h3>Week 1 Intention Setting</h3>
+        <label>I am simply willing to notice:</label>
+        <input type="text" id="intentionNotice" placeholder="E.g., when I apologize for taking up space...">
+        
+        <label>I commit to observing without judgment when:</label>
+        <input type="text" id="intentionCommit" placeholder="E.g., when I look at my bank account...">
+    </div>
+
+    <div id="audio" class="card">
+        <h2>Part 2: Audio Practice Reflections</h2>
+        [cite_start]<p class="helper-text">Complete these after listening to "The Observer" practice[cite: 44].</p>
+
+        <label>1. What was the first thought your inner voice offered when you brought up your uncertain situation?</label>
+        [cite_start]<span class="helper-text">Was it kind, anxious, or critical? [cite: 79]</span>
+        <input type="text" id="audioQ1">
+
+        <label>2. When you placed your hand on your chest, what did you notice in your body?</label>
+        [cite_start]<span class="helper-text">Did anything shift, even slightly? [cite: 80]</span>
+        <textarea id="audioQ2"></textarea>
+
+        <label>3. What scarcity script do you think was running during this practice?</label>
+        <select id="audioQ3">
+            <option value="">Select a script...</option>
+            <option value="Lack Loop">The Lack Loop</option>
+            <option value="Unworthiness Whisper">The Unworthiness Whisper</option>
+            <option value="Bracing Stance">The Bracing Stance</option>
+        </select>
+
+        <label>4. What would it mean for you to trust the Observer?</label>
+        [cite_start]<span class="helper-text">The part of you that watches without judgment[cite: 82].</span>
+        <textarea id="audioQ4"></textarea>
+
+        <label>5. [cite_start]What is one small thing you are choosing to notice this week, without trying to fix it? [cite: 83]</label>
+        <input type="text" id="audioQ5">
+    </div>
+
+    <div class="actions" style="background: var(--bg-cream); padding: 20px; border-radius: 8px; margin-top: 20px;">
+        <span id="saveStatus" class="status-msg">Changes save automatically to your browser.</span>
+        <div style="display: flex; gap: 10px;">
+            <button class="secondary-btn" onclick="clearData()">Clear All</button>
+            <button class="primary-btn" onclick="downloadData()">
+                <span>Download Entry</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Logic for Tabs, Saving, and Exporting ---
+
+    // 1. Tab Switching
+    function switchTab(tabId) {
+        // Hide all cards
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        
+        // Show selected
+        document.getElementById(tabId).classList.add('active');
+        
+        // Update button style
+        const btnIndex = tabId === 'workbook' ? 0 : 1;
+        document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
+    }
+
+    // 2. Auto-Save to LocalStorage
+    const inputs = document.querySelectorAll('input, textarea, select');
+    
+    function loadData() {
+        inputs.forEach(input => {
+            const saved = localStorage.getItem('week1_' + input.id);
+            if (saved) {
+                if (input.type === 'radio') {
+                    if (input.value === saved) input.checked = true;
+                } else {
+                    input.value = saved;
+                }
+            }
+        });
+        
+        // Handle radio buttons specifically
+        const savedScript = localStorage.getItem('week1_script');
+        if (savedScript) {
+            const radio = document.querySelector(`input[name="script"][value="${savedScript}"]`);
+            if (radio) radio.checked = true;
+        }
+    }
+
+    function saveData(e) {
+        const input = e.target;
+        if (input.type === 'radio') {
+            localStorage.setItem('week1_script', input.value);
+        } else {
+            localStorage.setItem('week1_' + input.id, input.value);
+        }
+        
+        // Visual feedback
+        const status = document.getElementById('saveStatus');
+        status.textContent = 'Saved!';
+        setTimeout(() => status.textContent = 'Changes save automatically to your browser.', 2000);
+    }
+
+    inputs.forEach(input => input.addEventListener('input', saveData));
+    
+    // 3. Download/Export Logic
+    function downloadData() {
+        let content = "ABUNDANCE SHIFT - WEEK 1: RECOGNIZE\nDate: " + new Date().toLocaleDateString() + "\n\n";
+        
+        content += "--- WORKBOOK EXERCISES ---\n\n";
+        
+        const script = document.querySelector('input[name="script"]:checked');
+        content += "1. SCARCITY SCRIPT: " + (script ? script.value : "Not selected") + "\n";
+        content += "Reason: " + document.getElementById('scriptReason').value + "\n\n";
+        
+        content += "2. INNER CRITIC AUDIT\n";
+        content += "- When something went wrong: Voice='" + document.getElementById('audit1_voice').value + "', Body='" + document.getElementById('audit1_body').value + "'\n";
+        content += "- When receiving a compliment: Voice='" + document.getElementById('audit2_voice').value + "', Body='" + document.getElementById('audit2_body').value + "'\n";
+        content += "- When making a decision: Voice='" + document.getElementById('audit3_voice').value + "', Body='" + document.getElementById('audit3_body').value + "'\n\n";
+        
+        content += "3. BODY CHECK-IN\n" + document.getElementById('bodyCheckIn').value + "\n\n";
+        
+        content += "4. INTENTION\n";
+        content += "Willing to notice: " + document.getElementById('intentionNotice').value + "\n";
+        content += "Commit to observing: " + document.getElementById('intentionCommit').value + "\n\n";
+        
+        content += "--- AUDIO REFLECTIONS ---\n\n";
+        content += "1. First thought: " + document.getElementById('audioQ1').value + "\n";
+        content += "2. Body shift: " + document.getElementById('audioQ2').value + "\n";
+        content += "3. Script running: " + document.getElementById('audioQ3').value + "\n";
+        content += "4. Trusting Observer: " + document.getElementById('audioQ4').value + "\n";
+        content += "5. Noticing this week: " + document.getElementById('audioQ5').value + "\n";
+
+        // Create file
+        const blob = new Blob([content], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'AbundanceShift_Week1.txt';
+        a.click();
+    }
+
+    function clearData() {
+        if(confirm('Are you sure you want to clear all entries?')) {
+            localStorage.clear();
+            inputs.forEach(i => {
+                if(i.type === 'radio') i.checked = false;
+                else i.value = '';
+            });
+            location.reload();
+        }
+    }
+
+    // Initialize
+    loadData();
+</script>
+
+</body>
+</html>
